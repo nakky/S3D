@@ -1,12 +1,18 @@
 project(
   'S3D',
-  ['cpp', 'objcpp'],
+  ['cpp'],
   version: '0.1.0',
   default_options: [
     'cpp_std=c++20',
   ],
   meson_version: '>=1.2.0',
 )
+
+os = host_machine.subsystem()
+
+if os == 'macos'
+  add_languages('objcpp')
+endif
 
 compiler = meson.get_compiler('cpp')
 compiler_id = compiler.get_id()
