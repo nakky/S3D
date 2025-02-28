@@ -1,6 +1,6 @@
 project(
   'S3D',
-  'cpp',
+  ['cpp', 'objcpp'],
   version: '0.1.0',
   default_options: [
     'cpp_std=c++20',
@@ -72,7 +72,7 @@ foreach def : cpp_defines
   cpp_define_args += [define_prefix + def]
 endforeach
 
-add_project_arguments(cpp_args, language: 'cpp')
+add_project_arguments(cpp_args, language: ['cpp', 'objcpp'])
 
 subdir('src')
 

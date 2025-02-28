@@ -7,10 +7,16 @@ inc = include_directories([
 
 srcs = [
   './src/example.cpp',
+  './src/ExampleApp.cpp',
+  './src/Home/HomeContent.cpp',
 ]
+
+glfw_proj = cmake.subproject('glfw')
+glfw_dep = glfw_proj.dependency('glfw')
 
 deps = [
   s3d_dep,
+  glfw_dep,
 ]
 
 if ['windows'].contains(host_machine.system())
@@ -25,6 +31,10 @@ elif ['darwin'].contains(host_machine.system())
 elif ['linux'].contains(host_machine.system())
 
 endif
+
+#install assets
+base_dir = meson.current_source_dir()
+install_subdir(base_dir + '/assets', install_dir: base_dir + '/../build/examples')
 
 executable(
   'example',
