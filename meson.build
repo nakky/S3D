@@ -18,6 +18,8 @@ compiler = meson.get_compiler('cpp')
 compiler_id = compiler.get_id()
 bt = get_option('buildtype')
 
+message(compiler_id)
+
 cpp_args = []
 link_args = []
 static_link_args = []

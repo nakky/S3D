@@ -18,7 +18,7 @@
 
 #include <string>
 
-#include "S3D/Foundation/ResourceDataBase.h"
+#include "S3D/Foundation/ResourceDatabase.h"
 #include "S3D/Foundation/IO.h"
 
 #include "S3D/Sound/SoundDriver.h"

@@ -19,6 +19,7 @@
 
 #include "S3D/Foundation/QueueThread.h"
 
+#include <vector>
 
 namespace S3D{
     //////////////////////////////////////////////////

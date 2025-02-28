@@ -16,7 +16,7 @@
 
 #include "S3D/Sound/SoundDataFormat.h"
 
-#include "S3D/Foundation/ResourceDataBase.h"
+#include "S3D/Foundation/ResourceDatabase.h"
 
 #include <string.h>
 

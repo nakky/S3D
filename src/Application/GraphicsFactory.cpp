@@ -121,7 +121,7 @@ namespace S3D
         switch (sGraphicsDriverType)
         {
         case GRAPHICSDRIVER_OPENGL3:
-            return new GLFWAppDriver(3, 3);
+            return new GLFWAppDriver(app, 3, 3);
         }
 
 #endif

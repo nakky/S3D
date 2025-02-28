@@ -17,6 +17,8 @@
 #include "S3D/Sound/SoundDataFormat.h"
 #include "S3D/Sound/SoundObject.h"
 
+#include <vector>
+
 namespace S3D
 {
 	//////////////////////////////////////////////////////

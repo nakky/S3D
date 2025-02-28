@@ -1,5 +1,6 @@
 s3d_inc = [
   '../include',
+  '../subprojects/glfw/include',
 ]
 
 s3d_srcs = [
