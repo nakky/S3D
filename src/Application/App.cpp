@@ -86,7 +86,7 @@ namespace S3D
                     
                     prevFrameStart = frameStart;
                 }else{
-                    usleep(1000);
+                    Timer::sleep(0.0001);
                     //LOG("usleep\n");
                 }
             }else{
@@ -95,7 +95,7 @@ namespace S3D
                 pausedUpdate((float)pausedUpdateElapsed);
                 
                 mPrevPausedStart = mPausedStart;
-                usleep(100000);
+                Timer::sleep(0.01);
             }
         }
         
