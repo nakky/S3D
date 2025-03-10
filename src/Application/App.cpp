@@ -28,8 +28,8 @@ namespace S3D
     {
         static const double BILLION  = 1000000000.0;
 
-        struct timespec prevFrameStart, frameStart, prevUpdateStart, updateStart, drawStart;
-        clock_gettime(CLOCK_REALTIME, &prevUpdateStart);
+        double prevFrameStart, frameStart, prevUpdateStart, updateStart, drawStart;
+        prevUpdateStart = mRenderTimer.getCurrentTime();
         prevFrameStart = prevUpdateStart;
         
         double updateElapsed = 0.0;
@@ -54,10 +54,9 @@ namespace S3D
                 if(fps <= 0) fps = 5;
                 double interval = 1.0 / (double)fps;
 
-                clock_gettime(CLOCK_REALTIME, &frameStart);
+                frameStart = mRenderTimer.getCurrentTime();
 
-                frameElapsed = (frameStart.tv_sec - prevFrameStart.tv_sec) +
-                                (frameStart.tv_nsec - prevFrameStart.tv_nsec) / BILLION;
+                frameElapsed = frameStart - prevFrameStart;
                 
                 if(frameElapsed > interval){
                     //FixedUpdate
@@ -65,9 +64,8 @@ namespace S3D
 
                     if(frameElapsed < interval * 2.0){
                         //Update & Draw
-                        clock_gettime(CLOCK_REALTIME, &updateStart);
-                        updateElapsed = (updateStart.tv_sec - prevUpdateStart.tv_sec) +
-                                        (updateStart.tv_nsec - prevUpdateStart.tv_nsec) / BILLION;
+                        updateStart = mRenderTimer.getCurrentTime();
+                        updateElapsed = updateStart - prevUpdateStart;
                                         
                         prevUpdateStart = updateStart;
 
@@ -78,7 +76,7 @@ namespace S3D
                         if(needDrawUpdate | needDrawGeometryUpdate) mNeedDraw = true;
                         
                         if(mNeedDraw){
-                            clock_gettime(CLOCK_REALTIME, &drawStart);
+                            drawStart = mRenderTimer.getCurrentTime();
                             
                             systemDraw();
                         }
@@ -92,9 +90,8 @@ namespace S3D
                     //LOG("usleep\n");
                 }
             }else{
-                clock_gettime(CLOCK_REALTIME, &mPausedStart);
-                double pausedUpdateElapsed = (mPausedStart.tv_sec - mPrevPausedStart.tv_sec) +
-                                    (mPausedStart.tv_nsec - mPrevPausedStart.tv_nsec) / BILLION;
+                mPausedStart = mRenderTimer.getCurrentTime();
+                double pausedUpdateElapsed = mPausedStart - mPrevPausedStart;
                 pausedUpdate((float)pausedUpdateElapsed);
                 
                 mPrevPausedStart = mPausedStart;
@@ -107,7 +104,7 @@ namespace S3D
     void App::pause()
     {
         mIsPaused.store(true);
-        clock_gettime(CLOCK_REALTIME, &mPrevPausedStart);
+        mPrevPausedStart = mRenderTimer.getCurrentTime();
 
         onPaused();
     }

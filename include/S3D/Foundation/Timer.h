@@ -24,6 +24,7 @@
 #include <sys/time.h>
 #endif
 
+#include <time.h>
 
 namespace S3D{
     //////////////////////////////////////////////////////
@@ -68,9 +69,11 @@ namespace S3D{
         }
     public:
         inline void reset();
+        inline double getElapsedTime();
 
-        inline unsigned int getElapsedTime();
-        static void sleep(unsigned int milliSec);
+        inline double getCurrentTime();
+
+        static void sleep(double sec);
 
     private:
 #if defined OS_WINDOWS
@@ -78,8 +81,8 @@ namespace S3D{
 #elif defined OS_MACOSX || defined OS_IPHONE
         double mBaseTime;
 #elif defined OS_LINUX || defined OS_ANDROID
-        struct timeval mBaseTime;
-        struct timeval mElapsedTime;
+        struct timespec mBaseTime;
+        struct timespec mElapsedTime;
 #endif
 
     };
@@ -100,7 +103,30 @@ namespace S3D{
 #elif defined OS_MACOSX || defined OS_IPHONE
         mBaseTime = CFAbsoluteTimeGetCurrent();
 #elif defined OS_LINUX || defined OS_ANDROID
-        gettimeofday(&mBaseTime, NULL);
+        clock_gettime(CLOCK_REALTIME, &mBaseTime);
+#endif
+    }
+
+    /****************************************/
+    /*!
+        @brief	Get Elapsed time
+        @note
+
+        @return	Got time (sec)
+
+        @author	Naoto Nakamura
+        @date	Aug. 11, 2009
+    */
+    /****************************************/
+    inline double Timer::getElapsedTime()
+    {
+#if defined OS_WINDOWS
+        return (double)(timeGetTime() - mBaseTime) / 1000.0;
+#elif defined OS_MACOSX || defined OS_IPHONE
+        return ((CFAbsoluteTimeGetCurrent() - mBaseTime));
+#elif defined OS_LINUX || defined OS_ANDROID
+        clock_gettime(CLOCK_REALTIME, &mElapsedTime);
+        return (double)((mElapsedTime.tv_sec - mBaseTime.tv_sec) % 0xffffff) + (double)(mElapsedTime.tv_usec - mBaseTime.tv_usec) / 1000000000.0;
 #endif
     }
 
@@ -109,21 +135,21 @@ namespace S3D{
         @brief	Get Current time
         @note
 
-        @return	Got time (millisec)
+        @return	Got time (sec)
 
         @author	Naoto Nakamura
         @date	Aug. 11, 2009
     */
     /****************************************/
-    inline unsigned int Timer::getElapsedTime()
+    inline double Timer::getCurrentTime()
     {
 #if defined OS_WINDOWS
-        return timeGetTime() - mBaseTime;
+        return (double)timeGetTime() / 1000.0;
 #elif defined OS_MACOSX || defined OS_IPHONE
-        return (unsigned int)((CFAbsoluteTimeGetCurrent() - mBaseTime) * 1000.0);
+        return CFAbsoluteTimeGetCurrent();
 #elif defined OS_LINUX || defined OS_ANDROID
-        gettimeofday(&mElapsedTime, NULL);
-        return (unsigned int)(mElapsedTime.tv_sec - mBaseTime.tv_sec) % 0xffffff * 1000 + (mElapsedTime.tv_usec - mBaseTime.tv_usec) / 1000;
+        clock_gettime(CLOCK_REALTIME, &mElapsedTime);
+        return (double)(mElapsedTime.tv_sec % 0xffffff) + (double)mElapsedTime.tv_usec / 1000000000.0;
 #endif
     }
 

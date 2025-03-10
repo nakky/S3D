@@ -85,7 +85,7 @@ namespace S3D{
         thread->runContainer();
         
         driver->mJoinCondition.lock();
-        Timer::sleep(1);
+        Timer::sleep(0.001f);
         driver->mJoinHandle = NULL;
         driver->mJoinCondition.signalAll();
         driver->mJoinCondition.unlock();

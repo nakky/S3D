@@ -6,8 +6,13 @@
 #include <vector>
 #include <string>
 #include <atomic>
-#include <unistd.h>
 #include <map>
+
+#if defined OS_LINUX
+#include <unistd.h>
+#endif
+
+#include "S3D/Foundation/Timer.h"
 
 #include "S3D/Application/GraphicsContext.h"
 
@@ -51,7 +56,7 @@ namespace S3D
         mNeedDraw(true),
         mDisplayMode(dispMode),
         mGraphicsMode(grapMode),
-        mRenderTimestamp(0)
+        mRenderTimestamp(0.0)
         {
         }
 
@@ -110,10 +115,11 @@ namespace S3D
         std::atomic<bool> mRunning;
 
         std::atomic<bool> mIsPaused;
-        struct timespec mPrevPausedStart, mPausedStart;
+        double mPrevPausedStart, mPausedStart;
 
         bool mNeedDraw;
-        unsigned int mRenderTimestamp;
+        Timer mRenderTimer;
+        double mRenderTimestamp;
 
         DisplayMode mDisplayMode;
         GraphicsMode mGraphicsMode;

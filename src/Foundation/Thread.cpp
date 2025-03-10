@@ -174,7 +174,7 @@ namespace S3D{
         
         join();
 
-        Timer::sleep(10);
+        Timer::sleep(0.01f);
 
         if(mState.load() != THREAD_STOPED){
             setState(THREAD_STOPED);

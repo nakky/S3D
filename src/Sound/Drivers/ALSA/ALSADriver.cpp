@@ -376,7 +376,7 @@ namespace S3D
 				snd_pcm_delay(mPCMHandle, &delay);
 				if (mQueue[bIndex]->getState() == WorkRequest::WORK_ABORTED)
 					return;
-				Timer::sleep(2);
+				Timer::sleep(0.002f);
 			}
 			mLock.lock();
 
