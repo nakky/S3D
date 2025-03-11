@@ -4,21 +4,17 @@
 namespace S3D
 {
 #define VQ_SHUFFLE(z, y, x, w) (((z) << 6) | ((y) << 4) | ((x) << 2) | (w))
-#define vshuffleq_f32(a, b, imm8)                   \
-	__extension__({                                 \
-		float32x4_t ret;                            \
-		ret = vmovq_n_f32(                          \
-			vgetq_lane_f32(a, (imm8) & (0x3)));     \
-		ret = vsetq_lane_f32(                       \
-			vgetq_lane_f32(a, ((imm8) >> 2) & 0x3), \
-			ret, 1);                                \
-		ret = vsetq_lane_f32(                       \
-			vgetq_lane_f32(b, ((imm8) >> 4) & 0x3), \
-			ret, 2);                                \
-		ret = vsetq_lane_f32(                       \
-			vgetq_lane_f32(b, ((imm8) >> 6) & 0x3), \
-			ret, 3);                                \
-	})
+
+#define vshuffleq_f32(a, b, imm8)							\
+		vsetq_lane_f32(										\
+			vgetq_lane_f32(b, ((imm8) >> 6) & 0x3),			\
+			vsetq_lane_f32( 								\
+				vgetq_lane_f32(b, ((imm8) >> 4) & 0x3),		\
+				vsetq_lane_f32(								\
+					vgetq_lane_f32(a, ((imm8) >> 2) & 0x3), \
+					vmovq_n_f32(							\
+						vgetq_lane_f32(a, (imm8) & (0x3))), 1), 2) , 3)
+	
 
 	//////////////////////////////////////////////////////////
 	//						Matrix33						//

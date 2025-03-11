@@ -14,7 +14,7 @@ namespace S3D
     {
         auto contents = mApplication->getCurrentContents();
         
-        bool isDirty;
+        bool isDirty = false;
         //Check
         for(auto ite = contents->begin() ; ite != contents->end(); ite++)
         {

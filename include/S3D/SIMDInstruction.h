@@ -15,33 +15,40 @@
 #define S3D_MATH_SIMDINSTRUCTION_H
 
 #if defined(ARCHTECTURE_IA)
-#define SIMDARCH_SSE
+    #define SIMDARCH_SSE
 #elif defined(ARCHTECTURE_ARM) && !defined(ANDROID_ARMEABI)
-#define SIMDARCH_NEON
+    #define SIMDARCH_NEON
 #endif
 
 #if defined SIMDARCH_SSE
-#include <xmmintrin.h>
-typedef __m128 SIMD128;
+    #include <xmmintrin.h>
+    typedef __m128 SIMD128;
 #elif defined SIMDARCH_NEON
-#include <arm_neon.h>
-typedef float32x4_t SIMD128;
+    #if defined OS_WINDOWS
+        #define _ARM64_DISTINCT_NEON_TYPES
+        #include <Intrin.h>
+        #include <arm_neon.h>
+    #else
+        #include <arm_neon.h>
+    #endif
+
+    typedef float32x4_t SIMD128;
 #else
-typedef float SIMD128 __attribute__((__vector_size__(16)));
+    typedef float SIMD128 __attribute__((__vector_size__(16)));
 #endif
 
 #if defined OS_ANDROID
-#if ANDROID_API >= 16
-int posix_memalign(void **memptr, size_t alignment, size_t size) __INTRODUCED_IN(16);
-#else
-#include <stdlib.h>
-#endif /* ANDROID_API >= 16 */
+    #if ANDROID_API >= 16
+        int posix_memalign(void **memptr, size_t alignment, size_t size) __INTRODUCED_IN(16);
+    #else
+        #include <stdlib.h>
+    #endif /* ANDROID_API >= 16 */
 #endif
 
 #if defined COMPILER_MSVC
-#if defined(_DEBUG)
-#undef new
-#endif
+    #if defined(_DEBUG)
+        #undef new
+    #endif
 #endif
 
 #include <cstddef>
@@ -52,11 +59,11 @@ namespace S3D
 // attribute
 #if defined COMPILER_MSVC
 
-#define ATTRIBUTE_ALIGN(n) __declspec(align(n))
+    #define ATTRIBUTE_ALIGN(n) __declspec(align(n))
 
 #elif defined COMPILER_GCC
 
-#define ATTRIBUTE_ALIGN(n) __attribute__((aligned(n)))
+    #define ATTRIBUTE_ALIGN(n) __attribute__((aligned(n)))
 
 #endif
 
@@ -140,17 +147,17 @@ namespace S3D
 #define BBIT_ORDER(a, b, c, d) (((a) << 6) | ((b) << 4) | ((c) << 2) | ((d)))
 
 #if defined ASM_MS
-#define ASM_REF_POINTER(a) a
+    #define ASM_REF_POINTER(a) a
 #elif defined ASM_GCC
-#define ASM_REF_POINTER(a) &a
+    #define ASM_REF_POINTER(a) &a
 #endif
 
 }; // namespace S3D
 
 #if defined COMPILER_MSVC
-#if defined(_DEBUG)
-#define new DBG_NEW
-#endif
+    #if defined(_DEBUG)
+        #define new DBG_NEW
+    #endif
 #endif
 
 #endif // S3D_MATH_SIMDINSTRUCTION_H

@@ -99,6 +99,7 @@ namespace S3D
             }
         }
         
+        return 0;
     }
 
     void App::pause()

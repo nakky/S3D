@@ -20,6 +20,9 @@ deps = [
 ]
 
 if ['windows'].contains(host_machine.system())
+  c_compiler = meson.get_compiler('c')
+  winmm_dep = c_compiler.find_library('winmm', required: true)
+  deps += winmm_dep
 
 elif ['darwin'].contains(host_machine.system())
   

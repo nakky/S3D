@@ -369,7 +369,7 @@ namespace S3D
 	/****************************************/
 	inline Matrix33::Matrix33(const Matrix33 &m)
 	{
-		memcpy(serial, m.serial, sizeof(float) * 16);
+		memcpy(serial, m.serial, sizeof(float) * 9);
 	}
 
 	/****************************************/

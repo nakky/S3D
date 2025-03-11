@@ -7,7 +7,7 @@ namespace S3D
 {
     class GraphicsContext;
     
-    enum ResourceType
+    enum ResourceType : unsigned short
     {
         RESOURCETYPE_MESH = 50001,
         RESOURCETYPE_MATERIAL = 50002,

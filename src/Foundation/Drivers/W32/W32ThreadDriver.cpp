@@ -3,8 +3,8 @@
 
 #ifdef USE_WINDOWSTHREAD_INTERFACE
 
-#include "S3D/Timer.h"
-#include "S3D/Thread.h"
+#include "S3D/Foundation/Timer.h"
+#include "S3D/Foundation/Thread.h"
 
 namespace S3D{
 

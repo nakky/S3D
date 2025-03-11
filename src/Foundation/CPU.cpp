@@ -3,10 +3,8 @@
 
 #if defined COMPILER_GCC
 #include <unistd.h>
-
-#if defined ARCHTECTURE_IA
-#include <cpuid.h>
-#endif
+#elif defined COMPILER_MSVC
+#include <intrin.h>
 #endif
 
 #if defined OS_ANDROID
@@ -114,7 +112,7 @@ namespace S3D
 #if defined COMPILER_MSVC
 		LARGE_INTEGER spf;
 		QueryPerformanceFrequency(&spf);
-		unsigned int64 freq = (unsigned int64)(spf.QuadPart * 1000);
+		unsigned __int64 freq = (unsigned __int64)(spf.QuadPart * 1000);
 #elif defined COMPILER_GCC
 
 #endif

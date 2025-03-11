@@ -30,7 +30,7 @@ namespace S3D{
     class Mesh;
     class Texture2D;
     class Material;
-    class GeometricState;
+    struct GeometricState;
     class Color4;
 
     class RenderFrame;

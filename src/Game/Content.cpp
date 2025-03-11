@@ -63,6 +63,8 @@ namespace S3D
             Entity *next = (*ite)->getEntity();
             updateFunctions(delta, next);
         }
+        
+        return false;
     }
 
 }; //namespace S3D

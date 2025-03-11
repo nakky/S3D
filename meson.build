@@ -35,7 +35,7 @@ posix_common_args = [
 ]
 if compiler_id == 'clang'
   cpp_args += posix_common_args + [
-    '-Wabi', '-flto',
+    '-Wabi', '-flto', '-fpermissive',
   ]
   link_args += ['-flto']
   static_link_args = [
@@ -44,7 +44,7 @@ if compiler_id == 'clang'
   cpp_defines += ['PACKETEER_IS_BUILDING=1']
 elif compiler_id == 'gcc'
   cpp_args += posix_common_args + [
-    '-Wstrict-null-sentinel', '-flto',
+    '-Wstrict-null-sentinel', '-flto',  '-fpermissive',
   ]
   link_args += ['-flto']
   static_link_args = [
@@ -73,8 +73,6 @@ else
     cpp_args += posix_release_args
   endif
 endif
-
-cpp_args += ['-fpermissive', '-Wold-style-cast']
 
 foreach def : cpp_defines
   cpp_define_args += [define_prefix + def]

@@ -8,8 +8,11 @@
 #include <vector>
 #include <string>
 #include <atomic>
-#include <unistd.h>
 #include <map>
+
+#if defined OS_LINUX
+#include <unistd.h>
+#endif
 
 namespace S3D
 {

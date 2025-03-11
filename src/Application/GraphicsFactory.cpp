@@ -105,7 +105,7 @@ namespace S3D
         switch (sGraphicsDriverType)
         {
         case GRAPHICSDRIVER_OPENGL3:
-            return new GLFWAppDriver(3, 3);
+            return new GLFWAppDriver(app, 3, 3);
         }
 
 #elif defined OS_MACOSX
@@ -125,6 +125,7 @@ namespace S3D
         }
 
 #endif
+        return NULL;
     }
 
     Renderer *GraphicsFactory::createRenderer()
@@ -154,6 +155,7 @@ namespace S3D
         }
 
 #endif
+        return NULL;
     }
 
     RenderFrameDriver *GraphicsFactory::createRenderFrameDriver(RenderFrame *renderFrame)
@@ -182,6 +184,7 @@ namespace S3D
             return new OpenGL3RenderFrameDriver(renderFrame);
         }
 #endif
+        return NULL;
     }
 
     Texture2DDriver *GraphicsFactory::createTexture2DDriver(Texture2D *texture)
@@ -210,6 +213,7 @@ namespace S3D
             return new OpenGL3Texture2DDriver(texture);
         }
 #endif
+        return NULL;
     }
 
     MeshDriver *GraphicsFactory::createMeshDriver(Mesh *mesh)
@@ -238,6 +242,7 @@ namespace S3D
             return new OpenGL3MeshDriver(mesh);
         }
 #endif
+        return NULL;
     }
 
 

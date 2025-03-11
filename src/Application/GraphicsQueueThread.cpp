@@ -48,6 +48,7 @@ namespace S3D
         GraphicsWorkRequest *gReq = (GraphicsWorkRequest*) req;
         gReq->addGraphicsContext(mContext);
         QueueThread::addRequest(req, resume);
+        return true;
     }
 
 }; //namespace S3D

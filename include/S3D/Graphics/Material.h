@@ -33,7 +33,7 @@ namespace S3D
 
         virtual const short getResourceType() { return RESOURCETYPE_MATERIAL; }
 
-        const char* getShaderName() { mShaderName.c_str(); }
+        const char* getShaderName() { return mShaderName.c_str(); }
         void setShaderName(const char *name) { mShaderName = name; }
 
         Shader *getShader() const { return mShader; }

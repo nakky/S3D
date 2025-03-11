@@ -188,6 +188,7 @@ namespace S3D{
                 return name;
             }
         }
+        return "";
     }
 
 
@@ -245,6 +246,7 @@ namespace S3D{
                 return ext;
             }
         }
+        return "";
     }
 
     /****************************************/
@@ -288,7 +290,7 @@ namespace S3D{
     /****************************************/
     bool FilePath::changeExtension(const std::string &ext){
         if(!deleteExtension())return FALSE;
-        mPath + "." + ext;
+        mPath += "." + ext;
         return TRUE;
     };
 

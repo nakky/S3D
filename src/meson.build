@@ -58,6 +58,21 @@ if ['windows'].contains(host_machine.system())
   #W32 Thread
   s3d_srcs += 'Foundation/Drivers/W32/W32ThreadDriver.cpp'
 
+  #GLFW
+  s3d_inc += '../include/S3D/Application/Drivers/GLFW'
+  s3d_srcs += 'Application/Drivers/GLFW/glad.cpp'
+  s3d_srcs += 'Application/Drivers/GLFW/GLFWAppDriver.cpp'
+  s3d_srcs += 'Application/Drivers/GLFW/GLFWGraphicsContext.cpp'
+
+  #OpenGL
+  s3d_srcs += 'Graphics/Drivers/OpenGL3/OpenGL3Renderer.cpp'
+  s3d_srcs += 'Graphics/Drivers/OpenGL3/OpenGL3RenderFrameDriver.cpp'
+  s3d_srcs += 'Graphics/Drivers/OpenGL3/OpenGL3TextureDriver.cpp'
+  s3d_srcs += 'Graphics/Drivers/OpenGL3/OpenGL3MeshDriver.cpp'
+  s3d_srcs += 'Graphics/Drivers/OpenGL3/Shaders/GLSL3Shader.cpp'
+  s3d_srcs += 'Graphics/Drivers/OpenGL3/Shaders/GLSL3DefaultShader.cpp'
+  s3d_srcs += 'Graphics/Drivers/OpenGL3/Shaders/GLSL3UnlitShader.cpp'
+
   #MME
   s3d_srcs += 'Sound/Drivers/MME/MMEDriver.cpp'
 
